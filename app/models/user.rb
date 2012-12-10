@@ -1,6 +1,21 @@
 class User < ActiveRecord::Base
-  attr_accessible :admin, :email, :name, :password, :password_confirmation, :username
-
   has_secure_password
-  validates_presence_of :password, :on => :create
+
+  attr_accessor             :user_identifier
+  attr_accessible 			:username, :email, :name, :password, :password_confirmation, :admin
+
+  validates :email,         :presence     => true,
+                            :uniqueness   => true,
+                            :format       => {:with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i}
+
+  validates :username,      :presence     => true,
+                            :uniqueness   => true,
+                            :length => { :minimum => 2, :maximum => 45 }
+
+  validates :name,          :presence     => true,
+                            :length => { :minimum => 2, :maximum => 45 }
+
+
+  validates :password,      :presence     => true, :on => :create,
+                            :length => { :minimum => 5, :maximum => 45 }
 end

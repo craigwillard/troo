@@ -1,4 +1,4 @@
-%h1 Listing users
+%h2 Listing users
 
 %table
   %tr
@@ -6,7 +6,7 @@
     %th Email
     %th Username
     %th Admin
-    %th Password digest
+    -#%th Password digest
     %th
     %th
     %th
@@ -17,7 +17,7 @@
       %td= user.email
       %td= user.username
       %td= user.admin
-      %td= user.password_digest
+      -#%td= user.password_digest
       %td= link_to 'Show', user
       %td= link_to 'Edit', edit_user_path(user)
       %td= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
