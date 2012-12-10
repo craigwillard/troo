@@ -1,4 +1,4 @@
-= form_for @user do |f|
+= form_for @user, :html => { :multipart => true } do |f|
   - if @user.errors.any?
     #error_explanation
       %h2= "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
@@ -15,14 +15,27 @@
   .field
     = f.label :username
     = f.text_field :username
-  .field
-    = f.label :admin
-    = f.check_box :admin
+  -if @current_user && @current_user.admin
+    .field
+      = f.label :admin
+      = f.check_box :admin
   .field
     = f.label :password
     = f.password_field :password
   .field
     = f.label :password_confirmation
     = f.password_field :password_confirmation
+  -if @user.resume.exists?
+    %hr/
+    %p
+      Current Resume
+      = link_to @user.resume.url, @user.resume.url
+      .field
+        = f.label :delete_resume
+        = f.check_box :delete_resume
+    %hr/
+  .field
+    = f.label :resume
+    = f.file_field :resume
   .actions
     = f.submit 'Save'

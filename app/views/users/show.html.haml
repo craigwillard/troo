@@ -1,5 +1,3 @@
-%p#notice= notice
-
 %p
   %b Name:
   = @user.name
@@ -9,9 +7,14 @@
 %p
   %b Username:
   = @user.username
-%p
-  %b Admin:
-  = @user.admin
+-if @current_user && @current_user.admin
+  %p
+    %b Admin:
+    = @user.admin
+-if @user.resume_file_size
+  %p
+    %b Resume:
+    = link_to @user.resume.url, @user.resume.url
 -#%p
   -#%b Password digest:
   -#= @user.password_digest
