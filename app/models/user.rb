@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   has_secure_password
   has_attached_file :resume
 
+  has_many :socialmediaaccount
+
   before_validation { resume.clear if delete_resume == '1' }
 
   attr_accessor             :user_identifier, :delete_resume

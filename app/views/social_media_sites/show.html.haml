@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @social_media_site.name
+%p
+  %b Homepageurl:
+  = @social_media_site.homepageurl
+%p
+  %b Userbaseurl:
+  = @social_media_site.userbaseurl
+
+= link_to 'Edit', edit_social_media_site_path(@social_media_site)
+\|
+= link_to 'Back', social_media_sites_path

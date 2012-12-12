@@ -1,0 +1,23 @@
+%h1 Listing social_media_sites
+
+%table
+  %tr
+    %th Name
+    %th Homepageurl
+    %th Userbaseurl
+    %th
+    %th
+    %th
+
+  - @social_media_sites.each do |social_media_site|
+    %tr
+      %td= social_media_site.name
+      %td= social_media_site.homepageurl
+      %td= social_media_site.userbaseurl
+      %td= link_to 'Show', social_media_site
+      %td= link_to 'Edit', edit_social_media_site_path(social_media_site)
+      %td= link_to 'Destroy', social_media_site, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Social media site', new_social_media_site_path
