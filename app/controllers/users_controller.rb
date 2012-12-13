@@ -2,12 +2,6 @@ class UsersController < ApplicationController
   before_filter :authorize, :only => [:index]
   before_filter :on_own_profile, :only => [:show, :edit]
 
-  def authorize
-    if !(current_user && current_user.admin)
-      redirect_to root_url, :notice => "Sorry, man. You can't see this page."
-    end
-  end
-
   def on_own_profile
     if current_user
       if !(current_user.admin)

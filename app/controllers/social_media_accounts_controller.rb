@@ -91,16 +91,4 @@ private
     @user = User.find(params[:user_id]) if params[:user_id]
   end
 
-  def authorize
-    if @user && current_user
-      if !(current_user.admin)
-        if (@user.id != current_user.id)
-          redirect_to root_url, :notice => "Sorry, man. You can only edit your own profile."
-        end
-      end
-    else
-      redirect_to root_url, :notice => "Sorry, man. You can't see this page."
-    end
-  end
-
 end

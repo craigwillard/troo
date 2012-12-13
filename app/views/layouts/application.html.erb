@@ -8,7 +8,7 @@
 <body>
 
 	<div id="user_nav">
-		<% if current_user %>
+		<% if logged_in? %>
 			Logged in as <%=current_user.email %>.
       <ul>
         <li>

@@ -4,8 +4,13 @@ class User < ActiveRecord::Base
 
   has_many :social_media_accounts
   has_many :social_media_sites, :through => :social_media_sites
+  has_many :interviews, class_name: "User"
 
   before_validation { resume.clear if delete_resume == '1' }
+
+  def name_and_email
+    self.name + " | " + self.email
+  end
 
   attr_accessor             :user_identifier, :delete_resume
   attr_accessible           :username, :email, :name, :password, :password_confirmation, :admin, :resume, :delete_resume

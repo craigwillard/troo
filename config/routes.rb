@@ -1,4 +1,6 @@
 Troo::Application.routes.draw do
+  resources :interviews
+
   resources :social_media_sites
   resources :social_media_accounts
 

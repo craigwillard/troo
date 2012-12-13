@@ -1,0 +1,22 @@
+= form_for @interview do |f|
+  - if @interview.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@interview.errors.count, "error")} prohibited this interview from being saved:"
+      %ul
+        - @interview.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :interviewee_id
+    = f.collection_select(:interviewee_id, User.all, :id, :name_and_email)
+  .field
+    = f.label :interviewer_id
+    = f.collection_select(:interviewer_id, User.where(:admin => true), :id, :name_and_email)
+  .field
+    = f.label :approve
+    = f.check_box :approve
+  .field
+    = f.label :notes
+    = f.text_area :notes
+  .actions
+    = f.submit 'Save'

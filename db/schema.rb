@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121212033043) do
+ActiveRecord::Schema.define(:version => 20121213150627) do
+
+  create_table "interviews", :force => true do |t|
+    t.integer  "interviewee_id"
+    t.integer  "interviewer_id"
+    t.boolean  "approve"
+    t.text     "notes"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "interviews", ["interviewee_id"], :name => "index_interviews_on_interviewee_id"
+  add_index "interviews", ["interviewer_id"], :name => "index_interviews_on_interviewer_id"
 
   create_table "social_media_accounts", :force => true do |t|
     t.integer  "user_id"

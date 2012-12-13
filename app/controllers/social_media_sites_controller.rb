@@ -1,12 +1,6 @@
 class SocialMediaSitesController < ApplicationController
   before_filter :authorize
 
-  def authorize
-    if !(current_user && current_user.admin)
-      redirect_to root_url, :notice => "Sorry, man. You can't see this page."
-    end
-  end
-
   # GET /social_media_sites
   # GET /social_media_sites.json
   def index
