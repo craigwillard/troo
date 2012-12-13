@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   has_many :social_media_accounts
   has_many :social_media_sites, :through => :social_media_sites
   has_many :interviews, class_name: "User"
+  has_many :user_tags
+  has_many :tags, through: :user_tags
 
   before_validation { resume.clear if delete_resume == '1' }
 
@@ -13,7 +15,7 @@ class User < ActiveRecord::Base
   end
 
   attr_accessor             :user_identifier, :delete_resume
-  attr_accessible           :username, :email, :name, :password, :password_confirmation, :admin, :resume, :delete_resume
+  attr_accessible           :username, :email, :name, :password, :password_confirmation, :admin, :resume, :delete_resume, :tag_ids
 
   validates :email,         :presence     => true,
                             :uniqueness   => true,
