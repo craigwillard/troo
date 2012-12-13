@@ -3,8 +3,8 @@
 %table
   %tr
     %th Name
-    %th Homepageurl
-    %th Userbaseurl
+    %th Homepage URL
+    %th Userbase URL
     %th
     %th
     %th
@@ -12,8 +12,8 @@
   - @social_media_sites.each do |social_media_site|
     %tr
       %td= social_media_site.name
-      %td= social_media_site.homepageurl
-      %td= social_media_site.userbaseurl
+      %td= social_media_site.homepage_url
+      %td= social_media_site.userbase_url
       %td= link_to 'Show', social_media_site
       %td= link_to 'Edit', edit_social_media_site_path(social_media_site)
       %td= link_to 'Destroy', social_media_site, method: :delete, data: { confirm: 'Are you sure?' }

@@ -2,7 +2,8 @@ class User < ActiveRecord::Base
   has_secure_password
   has_attached_file :resume
 
-  has_many :socialmediaaccount
+  has_many :social_media_accounts
+  has_many :social_media_sites, :through => :social_media_sites
 
   before_validation { resume.clear if delete_resume == '1' }
 

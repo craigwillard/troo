@@ -15,6 +15,19 @@
   %p
     %b Resume:
     = link_to @user.resume.url, @user.resume.url
+%hr
+-if @user.social_media_accounts
+  %h3 Social Media Accounts
+  - @user.social_media_accounts.each do |social_media_account|
+    %p
+      %b
+        = social_media_account.social_media_site.name + ":"
+      = link_to social_media_account.social_media_site.userbase_url + social_media_account.identifier,
+          "http://" + social_media_account.social_media_site.userbase_url + social_media_account.identifier, target: "_blank"
+      = link_to "Edit", edit_user_social_media_account_path(@user, social_media_account)
+      = link_to 'Destroy', user_social_media_account_path(@user, social_media_account), method: :delete, data: { confirm: 'Are you sure?' }
+  = link_to "New", new_user_social_media_account_path(@user)
+%hr
 -#%p
   -#%b Password digest:
   -#= @user.password_digest

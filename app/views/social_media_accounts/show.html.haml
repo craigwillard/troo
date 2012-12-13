@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @social_media_account.identifier
+%p
+  %b User:
+  = @user.name
+%p
+  %b Social Media Site:
+  = @social_media_account.social_media_site_name
+
+= link_to 'Edit', edit_user_social_media_account_path(@user, @social_media_account)
+\|
+= link_to 'Back', @user

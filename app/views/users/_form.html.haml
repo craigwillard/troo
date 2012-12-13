@@ -33,9 +33,13 @@
       .field
         = f.label :delete_resume
         = f.check_box :delete_resume
-    %hr/
   .field
-    = f.label :resume
+    -if @user.resume.exists?
+      = f.label "New Resume"
+    -else
+      = f.label :resume
+
     = f.file_field :resume
+  %hr/
   .actions
     = f.submit 'Save'

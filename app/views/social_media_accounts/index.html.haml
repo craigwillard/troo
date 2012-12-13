@@ -1,0 +1,23 @@
+%h1 Listing social_media_accounts for #{@user.name}
+
+%table
+  %tr
+    %th Identifier
+    %th User ID
+    %th Social Media Site ID
+    %th
+    %th
+    %th
+
+  - @social_media_accounts.each do |social_media_account|
+    %tr
+      %td= social_media_account.identifier
+      %td= social_media_account.user_id
+      %td= social_media_account.social_media_site_id
+      %td= link_to 'Show', social_media_account
+      %td= link_to 'Edit', edit_social_media_account_path(social_media_account)
+      %td= link_to 'Destroy', social_media_account, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Social media account', new_user_social_media_account_path(@user) if @user

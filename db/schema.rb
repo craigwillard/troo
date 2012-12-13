@@ -15,21 +15,21 @@ ActiveRecord::Schema.define(:version => 20121212033043) do
 
   create_table "social_media_accounts", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "socialmediasite_id"
+    t.integer  "social_media_site_id"
     t.string   "identifier"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
   end
 
-  add_index "social_media_accounts", ["socialmediasite_id"], :name => "index_social_media_accounts_on_socialmediasite_id"
+  add_index "social_media_accounts", ["social_media_site_id"], :name => "index_social_media_accounts_on_social_media_site_id"
   add_index "social_media_accounts", ["user_id"], :name => "index_social_media_accounts_on_user_id"
 
   create_table "social_media_sites", :force => true do |t|
     t.string   "name"
-    t.string   "homepageurl"
-    t.string   "userbaseurl"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.string   "homepage_url"
+    t.string   "userbase_url"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "users", :force => true do |t|

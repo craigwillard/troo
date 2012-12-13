@@ -4,8 +4,8 @@ describe "social_media_sites/show" do
   before(:each) do
     @social_media_site = assign(:social_media_site, stub_model(SocialMediaSite,
       :name => "Name",
-      :homepageurl => "Homepageurl",
-      :userbaseurl => "Userbaseurl"
+      :homepage_url => "homepage_url",
+      :userbase_url => "userbase_url"
     ))
   end
 
@@ -13,7 +13,7 @@ describe "social_media_sites/show" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should match(/Name/)
-    rendered.should match(/Homepageurl/)
-    rendered.should match(/Userbaseurl/)
+    rendered.should match(/homepage_url/)
+    rendered.should match(/userbase_url/)
   end
 end

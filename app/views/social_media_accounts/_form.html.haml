@@ -1,0 +1,16 @@
+= form_for [@user,@social_media_account] do |f|
+  - if @social_media_account.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@social_media_account.errors.count, "error")} prohibited this social_media_account from being saved:"
+      %ul
+        - @social_media_account.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :identifier
+    = f.text_field :identifier
+  .field
+    = f.label :social_media_site_id
+    = f.collection_select(:social_media_site_id, SocialMediaSite.all, :id, :name)
+  .actions
+    = f.submit 'Save'

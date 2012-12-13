@@ -5,13 +5,13 @@ describe "social_media_sites/index" do
     assign(:social_media_sites, [
       stub_model(SocialMediaSite,
         :name => "Name",
-        :homepageurl => "Homepageurl",
-        :userbaseurl => "Userbaseurl"
+        :homepage_url => "homepage_url",
+        :userbase_url => "userbase_url"
       ),
       stub_model(SocialMediaSite,
         :name => "Name",
-        :homepageurl => "Homepageurl",
-        :userbaseurl => "Userbaseurl"
+        :homepage_url => "homepage_url",
+        :userbase_url => "userbase_url"
       )
     ])
   end
@@ -20,7 +20,7 @@ describe "social_media_sites/index" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "tr>td", :text => "Name".to_s, :count => 2
-    assert_select "tr>td", :text => "Homepageurl".to_s, :count => 2
-    assert_select "tr>td", :text => "Userbaseurl".to_s, :count => 2
+    assert_select "tr>td", :text => "homepage_url".to_s, :count => 2
+    assert_select "tr>td", :text => "userbase_url".to_s, :count => 2
   end
 end

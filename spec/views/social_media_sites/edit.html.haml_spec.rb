@@ -4,8 +4,8 @@ describe "social_media_sites/edit" do
   before(:each) do
     @social_media_site = assign(:social_media_site, stub_model(SocialMediaSite,
       :name => "MyString",
-      :homepageurl => "MyString",
-      :userbaseurl => "MyString"
+      :homepage_url => "MyString",
+      :userbase_url => "MyString"
     ))
   end
 
@@ -15,8 +15,8 @@ describe "social_media_sites/edit" do
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "form", :action => social_media_sites_path(@social_media_site), :method => "post" do
       assert_select "input#social_media_site_name", :name => "social_media_site[name]"
-      assert_select "input#social_media_site_homepageurl", :name => "social_media_site[homepageurl]"
-      assert_select "input#social_media_site_userbaseurl", :name => "social_media_site[userbaseurl]"
+      assert_select "input#social_media_site_homepage_url", :name => "social_media_site[homepage_url]"
+      assert_select "input#social_media_site_userbase_url", :name => "social_media_site[userbase_url]"
     end
   end
 end
