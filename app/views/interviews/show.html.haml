@@ -11,7 +11,7 @@
   = @interview.approve
 %p
   %b Date:
-  = @interview.date
+  = @interview.date.strftime("%e %b %Y")
 %p
   %b Notes:
   = @interview.notes
