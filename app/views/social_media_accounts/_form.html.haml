@@ -8,7 +8,7 @@
 
   .field
     = f.label :identifier
-    = f.text_field :identifier
+    = f.text_field :identifier, { autofocus: :true }
   .field
     = f.label :social_media_site_id
     = f.collection_select(:social_media_site_id, SocialMediaSite.all, :id, :name)

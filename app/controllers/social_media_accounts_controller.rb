@@ -1,5 +1,7 @@
 class SocialMediaAccountsController < ApplicationController
-  before_filter :find_user, :authorize
+  before_filter :find_user
+  before_filter :authorize, :only => [:index, :show]
+  before_filter :authorize_social_media_accounts, :except => [:index, :show]
 
   # GET /social_media_accounts
   # GET /social_media_accounts.json
@@ -18,7 +20,11 @@ class SocialMediaAccountsController < ApplicationController
   # GET /social_media_accounts/1
   # GET /social_media_accounts/1.json
   def show
-    @social_media_account = @user.social_media_accounts.find(params[:id])
+    if @user
+      @social_media_account = @user.social_media_accounts.find(params[:id])
+    else
+      @social_media_account = SocialMediaAccount.find(params[:id])
+    end
 
     respond_to do |format|
       format.html # show.html.erb
@@ -39,7 +45,11 @@ class SocialMediaAccountsController < ApplicationController
 
   # GET /social_media_accounts/1/edit
   def edit
-    @social_media_account = @user.social_media_accounts.find(params[:id])
+    if @user
+      @social_media_account = @user.social_media_accounts.find(params[:id])
+    else
+      @social_media_account = SocialMediaAccount.find(params[:id])
+    end
   end
 
   # POST /social_media_accounts
@@ -77,18 +87,36 @@ class SocialMediaAccountsController < ApplicationController
   # DELETE /social_media_accounts/1
   # DELETE /social_media_accounts/1.json
   def destroy
-    @social_media_account = @user.social_media_accounts.find(params[:id])
+    if @user
+      @social_media_account = @user.social_media_accounts.find(params[:id])
+    else
+      @social_media_account = SocialMediaAccount.find(params[:id])
+    end
+
     @social_media_account.destroy
 
     respond_to do |format|
-      format.html { redirect_to @user }
-      format.json { head :no_content }
+      if @user
+        format.html { redirect_to @user }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to social_media_accounts_path }
+        format.json { head :no_content }
+      end
     end
   end
 
 private
   def find_user
     @user = User.find(params[:user_id]) if params[:user_id]
+  end
+
+  def authorize_social_media_accounts
+    if !(current_user.admin)
+      if (@user.id != current_user.id)
+        redirect_to root_url, :notice => "Sorry, man. You can only edit your own profile!!"
+      end
+    end
   end
 
 end

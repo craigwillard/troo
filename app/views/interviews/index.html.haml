@@ -5,6 +5,7 @@
     %th Interviewee
     %th Interviewer
     %th Approve
+    %th Date
     %th Notes
     %th
     %th
@@ -15,6 +16,7 @@
       %td= interview.interviewee.name
       %td= interview.interviewer.name
       %td= interview.approve
+      %td= interview.date
       %td= interview.notes
       %td= link_to 'Show', interview
       %td= link_to 'Edit', edit_interview_path(interview)

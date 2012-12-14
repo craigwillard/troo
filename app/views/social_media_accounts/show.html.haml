@@ -5,11 +5,16 @@
   = @social_media_account.identifier
 %p
   %b User:
-  = @user.name
+  = @social_media_account.user.name
 %p
   %b Social Media Site:
   = @social_media_account.social_media_site_name
 
-= link_to 'Edit', edit_user_social_media_account_path(@user, @social_media_account)
-\|
-= link_to 'Back', @user
+- if @user
+  = link_to 'Edit', edit_user_social_media_account_path(@user, @social_media_account)
+  \|
+  = link_to 'Back', @user
+-else
+  = link_to 'Edit', edit_social_media_account_path(@social_media_account)
+  \|
+  = link_to 'Back', social_media_accounts_path

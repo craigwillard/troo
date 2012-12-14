@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_filter :on_own_profile, :only => [:show, :edit]
 
   def on_own_profile
-    if current_user
+    if logged_in?
       if !(current_user.admin)
         @user = User.find(params[:id])
 

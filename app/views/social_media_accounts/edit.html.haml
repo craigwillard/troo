@@ -1,7 +1,12 @@
-%h1 Editing social_media_account for #{@user.name}
+%h1 Editing social_media_account
 
 = render 'form'
 
-= link_to 'Show', user_social_media_account_path(@user, @social_media_account.social_media_site)
-\|
-= link_to 'Back', @user
+- if @user
+  = link_to 'Show', user_social_media_account_path(@user, @social_media_account.social_media_site)
+  \|
+  = link_to 'Back', @user
+-else
+  = link_to 'Show', social_media_account_path(@social_media_account)
+  \|
+  = link_to 'Back', social_media_account_path

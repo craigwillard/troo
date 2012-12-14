@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121213200221) do
+ActiveRecord::Schema.define(:version => 20121214163337) do
 
   create_table "interviews", :force => true do |t|
     t.integer  "interviewee_id"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20121213200221) do
     t.text     "notes"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.datetime "date"
   end
 
   add_index "interviews", ["interviewee_id"], :name => "index_interviews_on_interviewee_id"

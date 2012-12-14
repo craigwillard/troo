@@ -8,7 +8,7 @@
 
   .field
     = f.label :name
-    = f.text_field :name
+    = f.text_field :name, { autofocus: :true }
   .field
     = f.label :email
     = f.text_field :email
@@ -45,6 +45,6 @@
   - Tag.all.each do |tag|
     = check_box_tag "user[tag_ids][]", tag.id, @user.tag_ids.include?(tag.id), id: dom_id(tag)
     = label_tag dom_id(tag), tag.name
-    %br
+  %hr
   .actions
     = f.submit 'Save'
