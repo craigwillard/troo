@@ -1,5 +1,7 @@
 class InterviewsController < ApplicationController
   before_filter :authorize
+  before_filter :find_interviewee
+  before_filter :find_interviewer
 
   # GET /interviews
   # GET /interviews.json
@@ -27,6 +29,14 @@ class InterviewsController < ApplicationController
   # GET /interviews/new.json
   def new
     @interview = Interview.new
+
+    if @interviewee
+      @interview.interviewee_id = @interviewee.id
+    end
+
+    if @interviewer
+      @interview.interviewer_id = @interviewer.id
+    end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -81,5 +91,14 @@ class InterviewsController < ApplicationController
       format.html { redirect_to interviews_url }
       format.json { head :no_content }
     end
+  end
+
+private
+  def find_interviewee
+    @interviewee = User.find(params[:interviewee_id]) if params[:interviewee_id]
+  end
+
+  def find_interviewer
+    @interviewer = User.find(params[:interviewer_id]) if params[:interviewer_id]
   end
 end

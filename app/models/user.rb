@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
 
   has_many :social_media_accounts
   has_many :social_media_sites, :through => :social_media_sites
-  has_many :interviews, class_name: "User"
+  has_many :interviews_as_interviewee, :foreign_key => "interviewee_id", :class_name => "Interview"
+  has_many :interviews_as_interviewer, :foreign_key => "interviewer_id", :class_name => "Interview"
   has_many :user_tags
   has_many :tags, through: :user_tags
 
