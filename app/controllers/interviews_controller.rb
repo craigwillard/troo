@@ -1,12 +1,15 @@
 class InterviewsController < ApplicationController
-  before_filter :authorize
   before_filter :find_interviewee
-  before_filter :find_interviewer
+  before_filter :authorize
 
   # GET /interviews
   # GET /interviews.json
   def index
-    @interviews = Interview.all
+    if @interviewee
+      @interviews = @interviewee.interviews_as_interviewee
+    else
+      @interviews = Interview.all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,7 +20,11 @@ class InterviewsController < ApplicationController
   # GET /interviews/1
   # GET /interviews/1.json
   def show
-    @interview = Interview.find(params[:id])
+    if @interviewee
+      @interview = @interviewee.interviews_as_interviewee.find(params[:id])
+    else
+      @interview = Interview.find(params[:id])
+    end
 
     respond_to do |format|
       format.html # show.html.erb
@@ -56,7 +63,7 @@ class InterviewsController < ApplicationController
 
     respond_to do |format|
       if @interview.save
-        format.html { redirect_to @interview, notice: 'Interview was successfully created.' }
+        format.html { redirect_to @interview.interviewee, notice: 'Interview was successfully created.' }
         format.json { render json: @interview, status: :created, location: @interview }
       else
         format.html { render action: "new" }
@@ -72,7 +79,7 @@ class InterviewsController < ApplicationController
 
     respond_to do |format|
       if @interview.update_attributes(params[:interview])
-        format.html { redirect_to @interview, notice: 'Interview was successfully updated.' }
+        format.html { redirect_to @interview.interviewee, notice: 'Interview was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -85,20 +92,22 @@ class InterviewsController < ApplicationController
   # DELETE /interviews/1.json
   def destroy
     @interview = Interview.find(params[:id])
+
     @interview.destroy
 
     respond_to do |format|
-      format.html { redirect_to interviews_url }
-      format.json { head :no_content }
+      if @interviewee
+          format.html { redirect_to @interviewee }
+          format.json { head :no_content }
+      else
+          format.html { redirect_to interviews_url }
+          format.json { head :no_content }
+      end
     end
   end
 
 private
   def find_interviewee
-    @interviewee = User.find(params[:interviewee_id]) if params[:interviewee_id]
-  end
-
-  def find_interviewer
-    @interviewer = User.find(params[:interviewer_id]) if params[:interviewer_id]
+    @interviewee = User.find(params[:user_id]) if params[:user_id]
   end
 end

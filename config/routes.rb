@@ -8,6 +8,7 @@ Troo::Application.routes.draw do
 
   resources :users do
     resources :social_media_accounts
+    resources :interviews
   end
 
   resources :sessions

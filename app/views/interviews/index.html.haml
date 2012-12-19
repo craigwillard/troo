@@ -1,7 +1,12 @@
-%h1 Listing interviews
+%h1
+  Listing interviews
+  -if @interviewee
+    for
+    = @interviewee.name
 
 %table
   %tr
+    %th ID
     %th Interviewee
     %th Interviewer
     %th Approve
@@ -13,15 +18,23 @@
 
   - @interviews.each do |interview|
     %tr
+      %td= interview.id
       %td= interview.interviewee.name
       %td= interview.interviewer.name
       %td= interview.approve
-      %td= interview.date
+      %td= interview.date.strftime("%e %b %Y")
       %td= interview.notes
-      %td= link_to 'Show', interview
-      %td= link_to 'Edit', edit_interview_path(interview)
-      %td= link_to 'Destroy', interview, method: :delete, data: { confirm: 'Are you sure?' }
+      -if @interviewee
+        %td= link_to 'Show', user_interview_path(@interviewee, interview)
+        %td= link_to 'Edit', edit_user_interview_path(@interviewee, interview)
+        %td= link_to 'Destroy', interview, method: :delete, data: { confirm: 'Are you sure?' }
+      -else
+        %td= link_to 'Show', interview
+        %td= link_to 'Edit', edit_interview_path(interview)
+        %td= link_to 'Destroy', interview, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
-
-= link_to 'New Interview', new_interview_path
+-if @interviewee
+  = link_to 'New Interview for ' + @interviewee.name, new_user_interview_path(@interviewee)
+-else
+  = link_to 'New Interview', new_interview_path

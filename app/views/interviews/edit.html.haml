@@ -2,6 +2,11 @@
 
 = render 'form'
 
-= link_to 'Show', @interview
-\|
-= link_to 'Back', interviews_path
+-if @interviewee
+  = link_to 'Show', user_interview_path(@interviewee, @interview)
+  \|
+  = link_to 'Back', user_interviews_path(@interviewee)
+-else
+  = link_to 'Show', @interview
+  \|
+  = link_to 'Back', interviews_path
