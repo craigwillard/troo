@@ -1,20 +1,7 @@
 class UsersController < ApplicationController
   before_filter :authorize, :only => [:index]
   before_filter :on_own_profile, :only => [:show, :edit]
-
-  def on_own_profile
-    if logged_in?
-      if !(current_user.admin)
-        @user = User.find(params[:id])
-
-        if (@user.id != current_user.id)
-          redirect_to root_url, :notice => "Sorry, man. You can only edit your own profile."
-        end
-      end
-    else
-      redirect_to root_url, :notice => "Sorry, man. You can't see this page."
-    end
-  end
+  before_filter :get_resources
 
   def index
     @users = User.all
@@ -26,7 +13,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
   end
 
   def new
@@ -34,7 +20,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def create
@@ -48,8 +33,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
-
     respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -62,7 +45,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
 
     respond_to do |format|
@@ -70,4 +52,24 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+    def on_own_profile
+      if logged_in?
+        if !(current_user.admin)
+          @user = User.find(params[:id])
+
+          if (@user.id != current_user.id)
+            redirect_to root_url, :notice => "Sorry, man. You can only edit your own profile."
+          end
+        end
+      else
+        redirect_to root_url, :notice => "Sorry, man. You can't see this page."
+      end
+    end
+
+    def get_resources
+      @user = User.find(params[:id]) if params[:id]
+    end
+
 end

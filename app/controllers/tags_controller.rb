@@ -1,5 +1,5 @@
 class TagsController < ApplicationController
-  before_filter :authorize
+  before_filter :authorize, :get_resources
 
   def index
     @tags = Tag.all
@@ -11,8 +11,6 @@ class TagsController < ApplicationController
   end
 
   def show
-    @tag = Tag.find(params[:id])
-
     respond_to do |format|
       format.html
       format.json { render json: @tag }
@@ -29,7 +27,6 @@ class TagsController < ApplicationController
   end
 
   def edit
-    @tag = Tag.find(params[:id])
   end
 
   def create
@@ -47,8 +44,6 @@ class TagsController < ApplicationController
   end
 
   def update
-    @tag = Tag.find(params[:id])
-
     respond_to do |format|
       if @tag.update_attributes(params[:tag])
         format.html { redirect_to @tag, notice: 'Tag was successfully updated.' }
@@ -61,7 +56,6 @@ class TagsController < ApplicationController
   end
 
   def destroy
-    @tag = Tag.find(params[:id])
     @tag.destroy
 
     respond_to do |format|
@@ -69,4 +63,9 @@ class TagsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+    def get_resources
+      @tag = Tag.find(params[:id]) if params[:id]
+    end
 end

@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :social_media_sites, :through => :social_media_sites
   has_many :interviews_as_interviewee, :foreign_key => "interviewee_id", :class_name => "Interview"
   has_many :interviews_as_interviewer, :foreign_key => "interviewer_id", :class_name => "Interview"
-  has_many :user_tags
+  has_many :user_tags, :dependent => :destroy
   has_many :tags, through: :user_tags
 
   before_validation { resume.clear if delete_resume == '1' }
