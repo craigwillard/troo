@@ -4,7 +4,7 @@ Troo::Application.routes.draw do
   resources :interviews
 
   resources :social_media_sites
-  resources :social_media_accounts
+  resources :social_media_accounts, except: [:new, :create]
 
   resources :users do
     resources :social_media_accounts

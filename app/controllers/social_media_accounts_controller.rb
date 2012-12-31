@@ -3,8 +3,6 @@ class SocialMediaAccountsController < ApplicationController
   before_filter :authorize, :only => [:index, :show]
   before_filter :authorize_social_media_accounts, :except => [:index, :show]
 
-  # GET /social_media_accounts
-  # GET /social_media_accounts.json
   def index
     if @user
       @social_media_accounts = @user.social_media_accounts.all
@@ -12,13 +10,11 @@ class SocialMediaAccountsController < ApplicationController
       @social_media_accounts = SocialMediaAccount.all
     end
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render json: @social_media_accounts }
     end
   end
 
-  # GET /social_media_accounts/1
-  # GET /social_media_accounts/1.json
   def show
     if @user
       @social_media_account = @user.social_media_accounts.find(params[:id])
@@ -27,23 +23,20 @@ class SocialMediaAccountsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.json { render json: @social_media_account }
     end
   end
 
-  # GET /social_media_accounts/new
-  # GET /social_media_accounts/new.json
   def new
     @social_media_account = @user.social_media_accounts.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @social_media_account }
     end
   end
 
-  # GET /social_media_accounts/1/edit
   def edit
     if @user
       @social_media_account = @user.social_media_accounts.find(params[:id])
@@ -52,8 +45,6 @@ class SocialMediaAccountsController < ApplicationController
     end
   end
 
-  # POST /social_media_accounts
-  # POST /social_media_accounts.json
   def create
     @social_media_account = @user.social_media_accounts.new(params[:social_media_account])
 
@@ -68,8 +59,6 @@ class SocialMediaAccountsController < ApplicationController
     end
   end
 
-  # PUT /social_media_accounts/1
-  # PUT /social_media_accounts/1.json
   def update
     @social_media_account = @user.social_media_accounts.find(params[:id])
 
@@ -84,8 +73,6 @@ class SocialMediaAccountsController < ApplicationController
     end
   end
 
-  # DELETE /social_media_accounts/1
-  # DELETE /social_media_accounts/1.json
   def destroy
     if @user
       @social_media_account = @user.social_media_accounts.find(params[:id])
