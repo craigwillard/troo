@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :authorize, :only => [:index]
-  before_filter :on_own_profile, :only => [:show, :edit]
   before_filter :get_resources
+  before_filter :on_own_profile, :only => [:show, :edit]
 
   def index
     @users = User.all
@@ -57,8 +57,6 @@ class UsersController < ApplicationController
     def on_own_profile
       if logged_in?
         if !(current_user.admin)
-          @user = User.find(params[:id])
-
           if (@user.id != current_user.id)
             redirect_to root_url, :notice => "Sorry, man. You can only edit your own profile."
           end

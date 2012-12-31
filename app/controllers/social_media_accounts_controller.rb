@@ -1,5 +1,5 @@
 class SocialMediaAccountsController < ApplicationController
-  before_filter :find_user
+  before_filter :get_resources
   before_filter :authorize, :only => [:index, :show]
   before_filter :authorize_social_media_accounts, :except => [:index, :show]
 
@@ -16,11 +16,6 @@ class SocialMediaAccountsController < ApplicationController
   end
 
   def show
-    if @user
-      @social_media_account = @user.social_media_accounts.find(params[:id])
-    else
-      @social_media_account = SocialMediaAccount.find(params[:id])
-    end
 
     respond_to do |format|
       format.html
@@ -38,11 +33,6 @@ class SocialMediaAccountsController < ApplicationController
   end
 
   def edit
-    if @user
-      @social_media_account = @user.social_media_accounts.find(params[:id])
-    else
-      @social_media_account = SocialMediaAccount.find(params[:id])
-    end
   end
 
   def create
@@ -60,8 +50,6 @@ class SocialMediaAccountsController < ApplicationController
   end
 
   def update
-    @social_media_account = @user.social_media_accounts.find(params[:id])
-
     respond_to do |format|
       if @social_media_account.update_attributes(params[:social_media_account])
         format.html { redirect_to @user, notice: 'Social media account was successfully updated.' }
@@ -74,12 +62,6 @@ class SocialMediaAccountsController < ApplicationController
   end
 
   def destroy
-    if @user
-      @social_media_account = @user.social_media_accounts.find(params[:id])
-    else
-      @social_media_account = SocialMediaAccount.find(params[:id])
-    end
-
     @social_media_account.destroy
 
     respond_to do |format|
@@ -94,8 +76,15 @@ class SocialMediaAccountsController < ApplicationController
   end
 
 private
-  def find_user
+  def get_resources
     @user = User.find(params[:user_id]) if params[:user_id]
+
+    if @user
+      @social_media_account = @user.social_media_accounts.find(params[:id]) if params[:id]
+    else
+      @social_media_account = SocialMediaAccount.find(params[:id]) if params[:id]
+    end
+
   end
 
   def authorize_social_media_accounts

@@ -1,4 +1,8 @@
-%h1 Editing social_media_account
+%h1
+  Editing Social Media Account
+  -if @user
+    for:
+    = @user.name_and_email
 
 = render 'form'
 

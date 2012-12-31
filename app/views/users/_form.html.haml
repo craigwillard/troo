@@ -40,11 +40,12 @@
       = f.label :resume
 
     = f.file_field :resume
-  %hr/
-  = hidden_field_tag "user[tag_ids][]", nil
-  - Tag.all.each do |tag|
-    = check_box_tag "user[tag_ids][]", tag.id, @user.tag_ids.include?(tag.id), id: dom_id(tag)
-    = label_tag dom_id(tag), tag.name
+  - if logged_in? && current_user.admin
+    %hr/
+    = hidden_field_tag "user[tag_ids][]", nil
+    - Tag.all.each do |tag|
+      = check_box_tag "user[tag_ids][]", tag.id, @user.tag_ids.include?(tag.id), id: dom_id(tag)
+      = label_tag dom_id(tag), tag.name
   %hr
   .actions
     = f.submit 'Save'

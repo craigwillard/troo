@@ -1,6 +1,5 @@
 class InterviewsController < ApplicationController
-  before_filter :find_interviewee
-  before_filter :authorize
+  before_filter :get_resources, :authorize
 
   def index
     if @interviewee
@@ -16,12 +15,6 @@ class InterviewsController < ApplicationController
   end
 
   def show
-    if @interviewee
-      @interview = @interviewee.interviews_as_interviewee.find(params[:id])
-    else
-      @interview = Interview.find(params[:id])
-    end
-
     respond_to do |format|
       format.html
       format.json { render json: @interview }
@@ -46,7 +39,6 @@ class InterviewsController < ApplicationController
   end
 
   def edit
-    @interview = Interview.find(params[:id])
   end
 
   def create
@@ -64,8 +56,6 @@ class InterviewsController < ApplicationController
   end
 
   def update
-    @interview = Interview.find(params[:id])
-
     respond_to do |format|
       if @interview.update_attributes(params[:interview])
         format.html { redirect_to @interview.interviewee, notice: 'Interview was successfully updated.' }
@@ -78,8 +68,6 @@ class InterviewsController < ApplicationController
   end
 
   def destroy
-    @interview = Interview.find(params[:id])
-
     @interview.destroy
 
     respond_to do |format|
@@ -94,7 +82,13 @@ class InterviewsController < ApplicationController
   end
 
 private
-  def find_interviewee
+  def get_resources
     @interviewee = User.find(params[:user_id]) if params[:user_id]
+
+    if @interviewee
+      @interview = @interviewee.interviews_as_interviewee.find(params[:id]) if params[:id]
+    else
+      @interview = Interview.find(params[:id]) if params[:id]
+    end
   end
 end
