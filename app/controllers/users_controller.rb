@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_filter :authorize, :only => [:index]
+  before_filter :authorize, only: [:index]
   before_filter :get_resources
-  before_filter :on_own_profile, :only => [:show, :edit]
+  before_filter :on_own_profile, only: [:show, :edit]
 
   def index
     @users = User.all
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
 
     if @user.save
-      redirect_to root_url, :notice => "Signed up! Now please sign in, fool."
+      redirect_to root_url, notice: "Signed up! Now please sign in, fool."
     else
       render "new"
     end
@@ -58,11 +58,11 @@ class UsersController < ApplicationController
       if logged_in?
         if !(current_user.admin)
           if (@user.id != current_user.id)
-            redirect_to root_url, :notice => "Sorry, man. You can only edit your own profile."
+            redirect_to root_url, notice: "Sorry, man. You can only edit your own profile."
           end
         end
       else
-        redirect_to root_url, :notice => "Sorry, man. You can't see this page."
+        redirect_to root_url, notice: "Sorry, man. You can't see this page."
       end
     end
 

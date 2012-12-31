@@ -11,7 +11,7 @@
     = f.collection_select(:interviewee_id, User.all, :id, :name_and_email)
   .field
     = f.label :interviewer_id
-    = f.collection_select(:interviewer_id, User.where(:admin => true), :id, :name_and_email)
+    = f.collection_select(:interviewer_id, User.where(admin: true), :id, :name_and_email)
   .field
     = f.label :approve
     = f.check_box :approve

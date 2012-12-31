@@ -1,7 +1,7 @@
 class SocialMediaAccountsController < ApplicationController
   before_filter :get_resources
-  before_filter :authorize, :only => [:index, :show]
-  before_filter :authorize_social_media_accounts, :except => [:index, :show]
+  before_filter :authorize, only: [:index, :show]
+  before_filter :authorize_social_media_accounts, except: [:index, :show]
 
   def index
     if @user
@@ -90,7 +90,7 @@ private
   def authorize_social_media_accounts
     if !(current_user.admin)
       if (@user.id != current_user.id)
-        redirect_to root_url, :notice => "Sorry, man. You can only edit your own profile!!"
+        redirect_to root_url, notice: "Sorry, man. You can only edit your own profile!!"
       end
     end
   end

@@ -15,10 +15,10 @@ class ApplicationController < ActionController::Base
 
   def authorize
     if !(logged_in?)
-        redirect_to root_url, :notice => "Sorry, man. Please log in to view this page!"
+        redirect_to root_url, notice: "Sorry, man. Please log in to view this page!"
     else
       if !(current_user.admin)
-        redirect_to root_url, :notice => "Sorry, man. You are not authorized to view this page!"
+        redirect_to root_url, notice: "Sorry, man. You are not authorized to view this page!"
       end
     end
   end

@@ -4,6 +4,6 @@ class UserTag < ActiveRecord::Base
 
   attr_accessible :name, :user_id, :tag_id
 
-  validates :user, :presence => :true
-  validates :tag, :presence => :true
+  validates :user, presence: :true
+  validates :tag, presence: :true
 end

@@ -4,9 +4,9 @@
 
   %p
     = label_tag :user_identifier, "Username or Email"
-    = text_field_tag :user_identifier, params[:user_identifier], :class => "span3"
-  %p 
+    = text_field_tag :user_identifier, params[:user_identifier], class: "span3"
+  %p
     = label_tag :password
-    = password_field_tag :password, "", :class => "span3"
-  
-  %p.button= submit_tag "Log in", :class => "btn"
+    = password_field_tag :password, "", class: "span3"
+
+  %p.button= submit_tag "Log in", class: "btn"
